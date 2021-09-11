@@ -1,0 +1,41 @@
+version: '3.4'
+
+services:
+  chatdb:
+    image: postgres
+
+  identitydb:
+    image: postgres
+    
+  pgadmin:
+    image: dpage/pgadmin4
+
+  chat.api:
+    image: ${DOCKER_REGISTRY-}chatapi
+    build:
+      context: .
+      dockerfile: Services/Chat/Chat.API/Dockerfile
+
+  mvcclient:
+    image: ${DOCKER_REGISTRY-}mvcclient
+    build:
+      context: .
+      dockerfile: Web/MvcClient/Dockerfile
+
+  identityserver:
+    image: ${DOCKER_REGISTRY-}identityserver
+    build:
+      context: .
+      dockerfile: Services/Identity/IdentityServer/Dockerfile
+
+  forum.api:
+    image: ${DOCKER_REGISTRY-}forumapi
+    build:
+      context: .
+      dockerfile: Services/Forum/Forum.API/Dockerfile
+
+volumes:
+  chat_data:
+  forum_data:
+  identity_data:
+  pgadmin_data:
