@@ -11,17 +11,14 @@ namespace Forum.Application.Queries.Posts
     {
         private readonly IForumRepository _forumRepository;
 
-        private readonly IHashIdService _hashIdService;
-
-        public GetPostQueryHandler(IForumRepository forumRepository, IHashIdService hashIdService)
+        public GetPostQueryHandler(IForumRepository forumRepository)
         {
             _forumRepository = forumRepository;
-            _hashIdService = hashIdService;
         }
 
         public async Task<PostModel> Handle(GetPostQuery request, CancellationToken cancellationToken)
         {
-            return await _forumRepository.GetPostAsync(_hashIdService.Decode(request.PostHashId), cancellationToken);
+            return await _forumRepository.GetPostAsync(request.PostHashId, cancellationToken);
         }
     }
 }

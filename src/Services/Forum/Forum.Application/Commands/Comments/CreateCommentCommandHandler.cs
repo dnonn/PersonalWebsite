@@ -23,8 +23,14 @@ namespace Forum.Application.Commands.Comments
         {
             var entity = new Comment
             {
+                PostId = _hashIdService.Decode(request.PostHashId),
                 Content = request.Content
             };
+
+            if (!string.IsNullOrWhiteSpace(request.CommentHashId))
+            {
+                entity.ParentCommentId = _hashIdService.Decode(request.CommentHashId);
+            }
 
             await _forumRepository.CreateCommentAsync(entity, cancellationToken);
 

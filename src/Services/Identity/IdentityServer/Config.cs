@@ -21,7 +21,8 @@ namespace IdentityServer
         public static IEnumerable<ApiScope> ApiScopes =>
             new ApiScope[]
             {
-                new ApiScope("chat")
+                new ApiScope("chat"),
+                new ApiScope("forum")
             };
 
         public static IEnumerable<Client> Clients(IConfiguration configuration) =>
@@ -57,7 +58,8 @@ namespace IdentityServer
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.OfflineAccess,
-                        "chat"
+                        "chat",
+                        "forum"
                     },
                     
                     AccessTokenLifetime = 60*60*2, // 2 hours
@@ -65,9 +67,47 @@ namespace IdentityServer
                 },
                 new Client
                 {
+                    ClientId = "react-web",
+                    ClientName = "react-web",
+                    ClientSecrets =  { new Secret("secret".Sha256()) },
+                    AccessTokenType = AccessTokenType.Jwt,
+                    AllowedGrantTypes = GrantTypes.Code,
+                    AllowOfflineAccess = true,
+
+                    RequireConsent = false,
+                    RequirePkce = false,
+
+                    RedirectUris =
+                    {
+                        $"{configuration["Client:React:Uri"]}/api/auth/callback/identity-server4",
+                        $"{configuration["Client:React:Uri"]}/auth/login-callback",
+                        $"{configuration["Client:React:Uri"]}/silent-renew.html",
+                        $"{configuration["Client:React:Uri"]}",
+                    },
+                    PostLogoutRedirectUris =
+                    {
+                        $"{configuration["Client:React:Uri"]}/auth/unauthorized",
+                        $"{configuration["Client:React:Uri"]}/auth/logout-callback",
+                        $"{configuration["Client:React:Uri"]}"
+                    },
+                    AllowedCorsOrigins =
+                    {
+                        $"{configuration["Client:React:Uri"]}"
+                    },
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        IdentityServerConstants.LocalApi.ScopeName,
+                        "chat",
+                        "forum"
+                    }
+                },
+                new Client
+                {
                     ClientId = "postman",
                     ClientSecrets = { new Secret("812dc01e-bd77-4257-bfeb-944ae5f8f1e3".Sha256()) },
-                    ClientUri = configuration["MvcClient"],
 
                     AllowedGrantTypes = GrantTypes.Implicit,
                     RequirePkce = false,
@@ -93,44 +133,12 @@ namespace IdentityServer
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.OfflineAccess,
-                        "chat"
+                        "chat",
+                        "forum"
                     },
                     
                     AccessTokenLifetime = 60*60*2, // 2 hours
                     IdentityTokenLifetime= 60*60*2 // 2 hours
-                },
-                new Client
-                {
-                    ClientId = "AngularClient",
-                    ClientName = "Angular Client",
-                    AllowedGrantTypes = GrantTypes.Code,
-                    RequireClientSecret = false,
-                    RequirePkce = true,
-                    AllowAccessTokensViaBrowser = true,
-                    RedirectUris =
-                    {
-                        "http://localhost:4200/oidc-login-redirect",
-                    },
-                    PostLogoutRedirectUris =
-                    {
-                        "http://localhost:4200/?postLogout=true",
-                    },
-                    AllowedCorsOrigins =
-                    {
-                        "http://localhost:4200",
-                    },
-                    AllowedScopes =
-                    {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
-                        "chat"
-                    },
-                    ClientSecrets =
-                    {
-                        new Secret("812dc01e-bd77-4257-bfeb-944ae5f8f1e3".Sha256()),
-                    },
-                    AllowOfflineAccess = true,
-                    RequireConsent = true,
                 }
             };
     }

@@ -2,22 +2,19 @@
 using Forum.Application.Models;
 using MediatR;
 
-namespace Forum.Application.Queries.Posts
+namespace Forum.Application.Queries.Comments
 {
     public class GetCommentsQuery : IRequest<PaginatedList<CommentCollectionModel>>
     {
         public string PostHashId { get; }
 
-        public string CommentHashId { get; }
-
         public int PageNumber { get; }
 
         public int PageSize { get; }
 
-        public GetCommentsQuery(string postHashId, string commentHashId, int pageNumber, int pageSize)
+        public GetCommentsQuery(string postHashId, int pageNumber, int pageSize)
         {
             PostHashId = postHashId;
-            PostHashId = commentHashId;
             PageNumber = pageNumber;
             PageSize = pageSize;
         }

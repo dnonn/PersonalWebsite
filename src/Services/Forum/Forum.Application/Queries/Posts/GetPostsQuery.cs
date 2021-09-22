@@ -6,15 +6,15 @@ namespace Forum.Application.Queries.Posts
 {
     public class GetPostsQuery : IRequest<PaginatedList<PostCollectionModel>>
     {
-        public string AreaRoute { get; }
+        public string AreaHashId { get; }
 
         public int PageNumber { get; }
 
         public int PageSize { get; }
 
-        public GetPostsQuery(string areaRoute, int pageNumber, int pageSize)
+        public GetPostsQuery(string areaHashId, int pageNumber, int pageSize)
         {
-            AreaRoute = areaRoute;
+            AreaHashId = areaHashId;
             PageNumber = pageNumber;
             PageSize = pageSize;
         }

@@ -1,7 +1,10 @@
 ﻿using BuildingBlocks.Application.Interfaces;
+using BuildingBlocks.Events;
 using BuildingBlocks.Infrastructure.Services;
+using Chat.Application.Events;
 using Chat.Application.Interfaces;
 using Chat.Infrastructure.Repositories;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,6 +47,18 @@ namespace Chat.Infrastructure
                 options.AddPolicy("DeleteMessage", policy => policy.RequireRole("Administrator"));
             });
             
+            services.AddMassTransit(config => {
+                config.AddConsumer<PostCreatedEventConsumer>();
+                config.UsingRabbitMq((ctx, cfg) => {
+                    cfg.Host(configuration["EventBusSettings:HostAddress"]);
+                    cfg.ReceiveEndpoint("post-created-queue", c => {
+                        c.ConfigureConsumer<PostCreatedEventConsumer>(ctx);
+                    });
+                });
+            });
+
+            services.AddMassTransitHostedService();
+
             services.AddHttpContextAccessor();
 
             services.AddSingleton<ICurrentUserService, CurrentUserService>();

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Forum.Domain.Entities
 {
-    public class Comment : AuditableEntity, IHasDomainEvent
+    public class Comment : AuditableEntity
     {
         public int CommentId { get; set; }
 
@@ -18,7 +18,5 @@ namespace Forum.Domain.Entities
         public Comment ParentComment { get; set; }
 
         public List<Comment> Comments { get; set; }
-
-        public List<DomainEvent> DomainEvents { get; set; } = new List<DomainEvent>();
     }
 }

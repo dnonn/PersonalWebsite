@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.Application.Interfaces;
+using BuildingBlocks.Events;
 using BuildingBlocks.Infrastructure;
 using Forum.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -16,9 +17,8 @@ namespace Forum.Infrastructure
         public ForumContext(
             DbContextOptions<ForumContext> options,
             ICurrentUserService currentUserService,
-            IDomainEventService domainEventService,
             IDateTime dateTime)
-            : base(options, currentUserService, domainEventService, dateTime)
+            : base(options, currentUserService, dateTime)
         { }
     }
 }

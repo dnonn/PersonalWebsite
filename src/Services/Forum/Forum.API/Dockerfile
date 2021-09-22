@@ -13,6 +13,7 @@ COPY ["BuildingBlocks/BuildingBlocks.Application/BuildingBlocks.Application.cspr
 COPY ["BuildingBlocks/BuildingBlocks.Domain/BuildingBlocks.Domain.csproj", "BuildingBlocks/BuildingBlocks.Domain/"]
 COPY ["Services/Forum/Forum.Application/Forum.Application.csproj", "Services/Forum/Forum.Application/"]
 COPY ["Services/Forum/Forum.Domain/Forum.Domain.csproj", "Services/Forum/Forum.Domain/"]
+COPY ["BuildingBlocks/BuildingBlocks.Events/BuildingBlocks.Events.csproj", "BuildingBlocks/BuildingBlocks.Events/"]
 COPY ["Services/Forum/Forum.Infrastructure/Forum.Infrastructure.csproj", "Services/Forum/Forum.Infrastructure/"]
 COPY ["BuildingBlocks/BuildingBlocks.Infrastructure/BuildingBlocks.Infrastructure.csproj", "BuildingBlocks/BuildingBlocks.Infrastructure/"]
 RUN dotnet restore "Services/Forum/Forum.API/Forum.API.csproj"

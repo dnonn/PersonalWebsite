@@ -14,8 +14,6 @@ namespace Forum.Infrastructure.Configuration
                 .WithOne(p => p.Area)
                 .HasForeignKey(p => p.AreaId);
 
-            builder.Ignore(a => a.DomainEvents);
-
             builder.Property(a => a.Route)
                 .HasMaxLength(100)
                 .IsRequired();

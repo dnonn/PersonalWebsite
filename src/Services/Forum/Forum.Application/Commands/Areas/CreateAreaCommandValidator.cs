@@ -15,7 +15,7 @@ namespace Forum.Application.Commands.Areas
                 .NotNull().WithMessage("Route is required")
                 .MinimumLength(1).WithMessage("Route must be at least 1 character long.")
                 .MaximumLength(100).WithMessage("Route cannot exceed 100 characters.")
-                .MustAsync(async (route, cancellationToken) => await _forumRepository.RouteAvailableAsync(route, cancellationToken));
+                .MustAsync(async (route, cancellationToken) => !await _forumRepository.RouteExistsAsync(route, cancellationToken));
         }
     }
 }

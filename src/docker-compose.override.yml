@@ -37,6 +37,13 @@ services:
     volumes:
       - forum_data:/var/lib/postgresql/data/
 
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    ports:
+        - "5672:5672"
+        - "15672:15672"
+
   pgadmin:
     container_name: pgadmin
     environment:
@@ -68,8 +75,10 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings:DefaultConnection=Server=chatdb;Port=5432;Database=Chat;User Id=admin;Password=password;
+      - EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672
     depends_on:
       - chatdb
+      - rabbitmq
     ports:
       - "8001:80"
     volumes:
@@ -83,19 +92,11 @@ services:
       - ConnectionStrings:DefaultConnection=Server=forumdb;Port=5432;Database=Forum;User Id=admin;Password=password;
       - HashId:Salt=b831a425-4b75-4986-aea8-e8269cb74bb3
       - HashId:Length=8
+      - EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672
+    depends_on:
+      - forumdb
+      - rabbitmq
     ports:
       - "8002:80"
-    volumes:
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-
-  mvcclient:
-    container_name: mvcclient
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:80
-      - IdentityUrl=http://host.docker.internal:8000
-      - CallBackUrl=http://host.docker.internal:8010
-    ports:
-      - "8010:80"
     volumes:
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

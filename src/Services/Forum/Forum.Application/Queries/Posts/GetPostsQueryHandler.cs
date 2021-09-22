@@ -18,7 +18,7 @@ namespace Forum.Application.Queries.Posts
 
         public async Task<PaginatedList<PostCollectionModel>> Handle(GetPostsQuery request, CancellationToken cancellationToken)
         {
-            return await _forumRepository.GetPostsAsync(request.AreaRoute, request.PageNumber, request.PageSize, cancellationToken);
+            return await _forumRepository.GetPostsAsync(request.AreaHashId, request.PageNumber, request.PageSize, cancellationToken);
         }
     }
 }

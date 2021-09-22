@@ -4,9 +4,15 @@ services:
   chatdb:
     image: postgres
 
+  forumdb:
+    image: postgres
+
   identitydb:
     image: postgres
     
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+
   pgadmin:
     image: dpage/pgadmin4
 
@@ -15,12 +21,6 @@ services:
     build:
       context: .
       dockerfile: Services/Chat/Chat.API/Dockerfile
-
-  mvcclient:
-    image: ${DOCKER_REGISTRY-}mvcclient
-    build:
-      context: .
-      dockerfile: Web/MvcClient/Dockerfile
 
   identityserver:
     image: ${DOCKER_REGISTRY-}identityserver

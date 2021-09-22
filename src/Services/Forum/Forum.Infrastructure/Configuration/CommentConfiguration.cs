@@ -9,6 +9,9 @@ namespace Forum.Infrastructure.Configuration
         public void Configure(EntityTypeBuilder<Comment> builder)
         {
             builder.HasKey(c => c.CommentId);
+            
+            builder.Property(c => c.PostId)
+                .IsRequired();
 
             builder.HasOne(c => c.ParentComment)
                 .WithMany(c => c.Comments)
@@ -17,8 +20,6 @@ namespace Forum.Infrastructure.Configuration
             builder.HasOne(c => c.Post)
                 .WithMany(p => p.Comments)
                 .HasForeignKey(c => c.PostId);
-
-            builder.Ignore(c => c.DomainEvents);
 
             builder.Property(c => c.Content)
                 .HasMaxLength(200)

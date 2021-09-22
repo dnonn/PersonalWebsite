@@ -1,7 +1,6 @@
 ﻿using BuildingBlocks.Application.Interfaces;
 using BuildingBlocks.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,17 +10,15 @@ namespace BuildingBlocks.Infrastructure
         where T : ContextBase<T>
     {
         private readonly ICurrentUserService _currentUserService;
+        
         private readonly IDateTime _dateTime;
-        private readonly IDomainEventService _domainEventService;
 
         public ContextBase(
             DbContextOptions<T> options,
             ICurrentUserService currentUserService,
-            IDomainEventService domainEventService,
             IDateTime dateTime) : base(options)
         {
             _currentUserService = currentUserService;
-            _domainEventService = domainEventService;
             _dateTime = dateTime;
         }
 
@@ -45,8 +42,6 @@ namespace BuildingBlocks.Infrastructure
 
             var result = await base.SaveChangesAsync(cancellationToken);
 
-            await DispatchEvents();
-
             return result;
         }
 
@@ -55,22 +50,6 @@ namespace BuildingBlocks.Infrastructure
             builder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
 
             base.OnModelCreating(builder);
-        }
-
-        private async Task DispatchEvents()
-        {
-            while (true)
-            {
-                var domainEventEntity = ChangeTracker.Entries<IHasDomainEvent>()
-                    .Select(x => x.Entity.DomainEvents)
-                    .SelectMany(x => x)
-                    .Where(domainEvent => !domainEvent.IsPublished)
-                    .FirstOrDefault();
-                if (domainEventEntity == null) break;
-
-                domainEventEntity.IsPublished = true;
-                await _domainEventService.Publish(domainEventEntity);
-            }
         }
     }
 }

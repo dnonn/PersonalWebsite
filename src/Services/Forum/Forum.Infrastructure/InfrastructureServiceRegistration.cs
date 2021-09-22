@@ -1,8 +1,10 @@
 ﻿using BuildingBlocks.Application.Interfaces;
+using BuildingBlocks.Events;
 using BuildingBlocks.Infrastructure.Configuration;
 using BuildingBlocks.Infrastructure.Services;
 using Forum.Application.Interfaces;
 using Forum.Infrastructure.Repositories;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,6 +47,14 @@ namespace Forum.Infrastructure
                 options.AddPolicy("CreateArea", policy => policy.RequireRole("BasicUser"));
                 options.AddPolicy("CreateComment", policy => policy.RequireRole("BasicUser"));
             });
+            
+            services.AddMassTransit(config => {
+                config.UsingRabbitMq((ctx, cfg) => {
+                    cfg.Host(configuration["EventBusSettings:HostAddress"]);
+                });
+            });
+
+            services.AddMassTransitHostedService();
             
             services.AddHttpContextAccessor();
 

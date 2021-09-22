@@ -14,14 +14,16 @@ namespace Forum.Application.Interfaces
 
         Task CreateAreaAsync(Area area, CancellationToken cancellationToken);
 
-        Task<bool> RouteAvailableAsync(string route, CancellationToken cancellationToken);
+        Task<bool> RouteExistsAsync(string route, CancellationToken cancellationToken);
 
         Task<PaginatedList<AreaCollectionModel>> GetAreasAsync(int pageNumber, int pageSize, CancellationToken cancellationToken);
 
-        Task<PaginatedList<CommentCollectionModel>> GetCommentsAsync(int? postHashId, int? commentHashId, int pageNumber, int pageSize, CancellationToken cancellationToken);
+        Task<PaginatedList<CommentCollectionModel>> GetCommentsAsync(string postHashId, int pageNumber, int pageSize, CancellationToken cancellationToken);
 
-        Task<PaginatedList<PostCollectionModel>> GetPostsAsync(string route, int pageNumber, int pageSize, CancellationToken cancellationToken);
+        Task<PaginatedList<CommentCollectionModel>> GetSubCommentsAsync(string commentHashId, int pageNumber, int pageSize, CancellationToken cancellationToken);
 
-        Task<PostModel> GetPostAsync(int postId, CancellationToken cancellationToken);
+        Task<PaginatedList<PostCollectionModel>> GetPostsAsync(string areaHashId, int pageNumber, int pageSize, CancellationToken cancellationToken);
+
+        Task<PostModel> GetPostAsync(string postHashId, CancellationToken cancellationToken);
     }
 }

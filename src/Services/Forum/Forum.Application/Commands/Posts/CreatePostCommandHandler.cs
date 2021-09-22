@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.Application.Interfaces;
+using BuildingBlocks.Events;
 using Forum.Application.Interfaces;
 using Forum.Domain.Entities;
 using MediatR;
@@ -11,27 +12,32 @@ namespace Forum.Application.Commands.Posts
     {
         private readonly IForumRepository _forumRepository;
 
-        private readonly ICurrentUserService _currentUserService;
-
         private readonly IHashIdService _hashIdService;
 
-        public CreatePostCommandHandler(IForumRepository forumRepository, ICurrentUserService currentUserService, IHashIdService hashIdService)
+        private readonly IDomainEventService _domainEventService;
+
+        public CreatePostCommandHandler(
+            IForumRepository forumRepository,
+            IHashIdService hashIdService,
+            IDomainEventService domainEventService)
         {
             _forumRepository = forumRepository;
-            _currentUserService = currentUserService;
             _hashIdService = hashIdService;
+            _domainEventService = domainEventService;
         }
 
         public async Task<string> Handle(CreatePostCommand request, CancellationToken cancellationToken)
         {
             var entity = new Post
             {
-                Username = _currentUserService.Username,
+                AreaId = _hashIdService.Decode(request.AreaHashId),
                 Title = request.Title,
                 Content = request.Content
             };
+            
 
             await _forumRepository.CreatePostAsync(entity, cancellationToken);
+            await _domainEventService.PublishAsync(new PostCreatedEvent(entity.PostId, entity.Title, entity.Content, entity.AreaId));
 
             return _hashIdService.Encode(entity.PostId);
         }

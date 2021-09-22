@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Forum.Infrastructure
 {
-    class ForumContextSeed
+    public static class ForumContextSeed
     {
+        public static async Task SeedSampleDataAsync(ForumContext context)
+        {
+        }
     }
 }

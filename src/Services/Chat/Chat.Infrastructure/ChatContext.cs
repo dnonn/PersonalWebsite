@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.Application.Interfaces;
+using BuildingBlocks.Events;
 using BuildingBlocks.Infrastructure;
 using Chat.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -12,9 +13,8 @@ namespace Chat.Infrastructure
         public ChatContext(
             DbContextOptions<ChatContext> options,
             ICurrentUserService currentUserService,
-            IDomainEventService domainEventService,
             IDateTime dateTime)
-            : base(options, currentUserService, domainEventService, dateTime)
+            : base(options, currentUserService, dateTime)
         { }
     }
 }

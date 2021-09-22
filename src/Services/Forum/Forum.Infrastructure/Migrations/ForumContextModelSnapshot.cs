@@ -119,9 +119,6 @@ namespace Forum.Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
-                    b.Property<string>("Username")
-                        .HasColumnType("text");
-
                     b.HasKey("PostId");
 
                     b.HasIndex("AreaId");

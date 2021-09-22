@@ -39,11 +39,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Forum", "Forum", "{4E56B339
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Forum.API", "Services\Forum\Forum.API\Forum.API.csproj", "{D0C72334-0C28-4D6A-BFDA-D88F163F5341}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Forum.Domain", "Services\Forum\Forum.Domain\Forum.Domain.csproj", "{19EA6BAD-3057-4FDE-878F-26E6A085C343}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Forum.Domain", "Services\Forum\Forum.Domain\Forum.Domain.csproj", "{19EA6BAD-3057-4FDE-878F-26E6A085C343}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Forum.Infrastructure", "Services\Forum\Forum.Infrastructure\Forum.Infrastructure.csproj", "{CCA20402-404A-4517-89F0-3FCEDA8EC061}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Forum.Infrastructure", "Services\Forum\Forum.Infrastructure\Forum.Infrastructure.csproj", "{CCA20402-404A-4517-89F0-3FCEDA8EC061}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Forum.Application", "Services\Forum\Forum.Application\Forum.Application.csproj", "{F688F73A-563F-4959-B905-61DC37A8C184}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Forum.Application", "Services\Forum\Forum.Application\Forum.Application.csproj", "{F688F73A-563F-4959-B905-61DC37A8C184}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactClient", "Web\ReactClient\ReactClient.csproj", "{83F31173-1911-4DC1-93F8-C044167FE1AF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReactClientWithIdentity", "Web\ReactClientWithIdentity\ReactClientWithIdentity.csproj", "{FFDFF8F5-DE94-4725-A098-77D8B013C2EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks.Events", "BuildingBlocks\BuildingBlocks.Events\BuildingBlocks.Events.csproj", "{7ADAFA2C-AB14-40ED-840E-74A65D91B0C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,6 +117,18 @@ Global
 		{F688F73A-563F-4959-B905-61DC37A8C184}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F688F73A-563F-4959-B905-61DC37A8C184}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F688F73A-563F-4959-B905-61DC37A8C184}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83F31173-1911-4DC1-93F8-C044167FE1AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83F31173-1911-4DC1-93F8-C044167FE1AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83F31173-1911-4DC1-93F8-C044167FE1AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83F31173-1911-4DC1-93F8-C044167FE1AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFDFF8F5-DE94-4725-A098-77D8B013C2EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFDFF8F5-DE94-4725-A098-77D8B013C2EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFDFF8F5-DE94-4725-A098-77D8B013C2EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFDFF8F5-DE94-4725-A098-77D8B013C2EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ADAFA2C-AB14-40ED-840E-74A65D91B0C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ADAFA2C-AB14-40ED-840E-74A65D91B0C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ADAFA2C-AB14-40ED-840E-74A65D91B0C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ADAFA2C-AB14-40ED-840E-74A65D91B0C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -133,6 +151,9 @@ Global
 		{19EA6BAD-3057-4FDE-878F-26E6A085C343} = {4E56B339-C3C6-48A0-A3EC-A7B2EC533E5A}
 		{CCA20402-404A-4517-89F0-3FCEDA8EC061} = {4E56B339-C3C6-48A0-A3EC-A7B2EC533E5A}
 		{F688F73A-563F-4959-B905-61DC37A8C184} = {4E56B339-C3C6-48A0-A3EC-A7B2EC533E5A}
+		{83F31173-1911-4DC1-93F8-C044167FE1AF} = {15171AAE-3C77-4F7A-AC92-E0CBAF27F134}
+		{FFDFF8F5-DE94-4725-A098-77D8B013C2EB} = {15171AAE-3C77-4F7A-AC92-E0CBAF27F134}
+		{7ADAFA2C-AB14-40ED-840E-74A65D91B0C5} = {CC99D0C2-3A51-4E1E-9650-7312EB79580D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F28BFB54-D312-4AE9-A6F3-FC46BFC235F4}

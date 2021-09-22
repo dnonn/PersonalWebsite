@@ -10,8 +10,6 @@ namespace Chat.Infrastructure.Configuration
         {
             builder.HasKey(m => m.MessageId);
 
-            builder.Ignore(e => e.DomainEvents);
-
             builder.Property(t => t.Content)
                 .HasMaxLength(200)
                 .IsRequired();
